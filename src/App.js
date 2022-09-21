@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
-const socket = io('https://chat-backend-spanb4.herokuapp.com/');
+const API_URL = 'https://chat-backend-spanb4.herokuapp.com';
+
+const socket = io(API_URL);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,7 +21,7 @@ function App() {
   const onLoginClick = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/login', { username });
+      const res = await axios.post(`${API_URL}/login`, { username });
       if (res) {
         setIsLoggedIn(true);
         socket.emit('add user', username);
